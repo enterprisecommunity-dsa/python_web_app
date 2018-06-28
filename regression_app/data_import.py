@@ -21,7 +21,7 @@ def import_data():
 		
 		error = None
 		
-		if not dat:
+		if not dat: 
 			error = 'Please input data.'
 		if error is None:
 			session['dat']=dat
@@ -33,11 +33,12 @@ def import_data():
 	
 @bp.route('/view_results', methods = ('GET',))
 def view_results():
+	if session.get('dat'):
 		from pandas import DataFrame, read_csv
 		error = None
 		from . import linear_modeling_engine
 		from io import StringIO
-		
+		import rpy2.rinterface as rinterface
 		
 		#try:
 		file_like_obj = StringIO(session['dat']) 
@@ -54,8 +55,11 @@ def view_results():
 		for i in coef:
 			cc.append(i)
 		
+		rinterface.endr(0)
 		return render_template('view_results.html', coef=cc)
 		
+	else:
+		return redirect(url_for('data_import.import_data'))
 		
 		
 def any_function_call():
