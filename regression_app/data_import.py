@@ -41,14 +41,14 @@ def view_results():
 		import rpy2.rinterface as rinterface
 		
 		#try:
-		file_like_obj = StringIO(session['dat']) 
+		csv_like_input_str = session['dat'] 
 		del session['dat']
-		x = read_csv(file_like_obj, header= None)
+		
 		
 		#except ParserError:
 			#return redirect(url_for('data_import.data_import'))
 		
-		coef = linear_modeling_engine.call_r(x)
+		coef = linear_modeling_engine.call_r(csv_like_input_str)
 		
 		cc = []
 		
@@ -88,9 +88,5 @@ def second_call_r(df):
 
 
 '''
-
-  
-		
-	
-	
+######### Unused Code As of Now ###########
 	
