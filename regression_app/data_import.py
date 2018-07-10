@@ -38,15 +38,11 @@ def view_results():
 		error = None
 		from . import linear_modeling_engine
 		from io import StringIO
-		import rpy2.rinterface as rinterface
 		
-		#try:
+
 		csv_like_input_str = session['dat'] 
 		del session['dat']
 		
-		
-		#except ParserError:
-			#return redirect(url_for('data_import.data_import'))
 		
 		coef = linear_modeling_engine.call_r(csv_like_input_str)
 		
@@ -55,30 +51,11 @@ def view_results():
 		for i in coef:
 			cc.append(i)
 		
-		rinterface.endr(0)
 		return render_template('view_results.html', coef=cc)
 		
 	else:
 		return redirect(url_for('data_import.import_data'))
-		
-		
-def any_function_call():
-	return 0
-	
-		
-		
-def second_call_r(df):
-	import rpy2.robjects
-	#from rpy2.robjects import pandas2ri
-	from rpy2.robjects.packages import importr
-	stats = importr('stats')
-	base = importr('base')
-	'''
-	pandas2ri.activate()
-	rpy2.robjects.globalenv['dataframe'] = df
-	m = stats.lm('dataframe', data=base.as_symbol('dataframe'))
-	return m
-	'''
+
 	
 '''
 12,14,15,2
@@ -88,5 +65,4 @@ def second_call_r(df):
 
 
 '''
-######### Unused Code As of Now ###########
 	

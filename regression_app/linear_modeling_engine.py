@@ -17,6 +17,9 @@ def call_r(df):
 	from io import StringIO
 	from rpy2.robjects import DataFrame
 	from rpy2.robjects import FloatVector
+	import rpy2.rinterface as ri
+	
+	ri.initr()
 	file_like_obj = StringIO(df)
 	constructor_dict = parser(file_like_obj)
 	rpy2_dataframe = DataFrame(constructor_dict)
@@ -66,6 +69,7 @@ def dict_to_robject(dd):
 
 
 ############ Unused Code Below #############
+
 
 	
 def second_call_r(df):
